@@ -2,8 +2,10 @@ import webapp2
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        logging.info('In Main Page')
-        self.response.write('hello_world')
+        # logging.info('In helllo handler')
+        self.response.write('<b> hello </b> world <br> This is a great program')
+        self.response.write('<ul> <li> this is a bullet <li> We the best <li> rock paper scisors')
+        self.response.write('</ul>')
 
 class SecretPage(webapp2.RequestHandler):
     def get(self):
