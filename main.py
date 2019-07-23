@@ -18,24 +18,35 @@ class MainPage(webapp2.RequestHandler):
 class StudentPage(webapp2.RequestHandler):
     def get(self):
         template_vars = {
-            'name': 'Mayra',
+            'name': self.request.get('student_name'),
+            'university': self.request.get('university')
         }
         template = jinja_env.get_template('templates/students.html')
         logging.info('StudentPage')
         # Step 3 Use the jinja Environment to get our file
         self.response.write(template.render(template_vars))
-#
-# class SecretPage(webapp2.RequestHandler):
-#     def get(self):
-#         self.response.write('This is the secret entrance to the page')
-#
+
+
+class AllStudents(webapp2.RequestHandler):
+    def get(self):
+        cssi = [
+        {"name":"Asia", "university":"SDSU"},
+        {"name":"Taylor", "university":"Stanford"},
+        ]
+        template_vars = {
+            'cssi': cssi,
+        }
+        template = jinja_env.get_template('templates/all_students.html')
+        logging.info('all students')
+        self.response.write(template.render(template_vars))
+
 # class AboutPage(webapp2.RequestHandler):
 #     def get(self):
 #         self.response.write('Isaac Anastasoff, 2019')
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/students', StudentPage),
-    # ('/aboutpage', AboutPage),
+    ('/student', StudentPage),
+    ('/all_students', AllStudents),
     # ('/FamBam', FamBam)
 ], debug = True)
