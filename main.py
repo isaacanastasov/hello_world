@@ -14,7 +14,14 @@ class MainPage(webapp2.RequestHandler):
         # Step 3 Use the jinja Environment to get our file
         template = jinja_env.get_template('hello.html')
         self.response.write(template.render())
-        
+
+class FamBam(webapp2.RequestHandler):
+    def get(self):
+        logging.info('Fambam')
+        # Step 3 Use the jinja Environment to get our file
+        template = jinja_env.get_template('fambam.html')
+        self.response.write(template.render())
+
 class SecretPage(webapp2.RequestHandler):
     def get(self):
         self.response.write('This is the secret entrance to the page')
@@ -27,4 +34,5 @@ app = webapp2.WSGIApplication([
     ('/', MainPage),
     ('/secretentrance', SecretPage),
     ('/aboutpage', AboutPage),
+    ('/FamBam', FamBam)
 ], debug = True)
