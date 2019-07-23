@@ -10,29 +10,32 @@ jinja_env = jinja2.Environment(
 
 class MainPage(webapp2.RequestHandler):
     def get(self):
-        logging.info('Program Ran')
+        logging.info('Program Good')
         # Step 3 Use the jinja Environment to get our file
-        template = jinja_env.get_template('hello.html')
+        template = jinja_env.get_template('templates/main.html')
         self.response.write(template.render())
 
-class FamBam(webapp2.RequestHandler):
+class StudentPage(webapp2.RequestHandler):
     def get(self):
-        logging.info('Fambam')
+        template_vars = {
+            'name': 'Mayra',
+        }
+        template = jinja_env.get_template('templates/students.html')
+        logging.info('StudentPage')
         # Step 3 Use the jinja Environment to get our file
-        template = jinja_env.get_template('fambam.html')
-        self.response.write(template.render())
-
-class SecretPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('This is the secret entrance to the page')
-
-class AboutPage(webapp2.RequestHandler):
-    def get(self):
-        self.response.write('Isaac Anastasoff, 2019')
+        self.response.write(template.render(template_vars))
+#
+# class SecretPage(webapp2.RequestHandler):
+#     def get(self):
+#         self.response.write('This is the secret entrance to the page')
+#
+# class AboutPage(webapp2.RequestHandler):
+#     def get(self):
+#         self.response.write('Isaac Anastasoff, 2019')
 
 app = webapp2.WSGIApplication([
     ('/', MainPage),
-    ('/secretentrance', SecretPage),
-    ('/aboutpage', AboutPage),
-    ('/FamBam', FamBam)
+    ('/students', StudentPage),
+    # ('/aboutpage', AboutPage),
+    # ('/FamBam', FamBam)
 ], debug = True)
